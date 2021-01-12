@@ -33,7 +33,7 @@ This utility saves a little bit of CPU and memory by removing the overhead of `b
 
 ### Further improvements
 This utility is implemented in Rust, just because we needed a native, small, fast and secure binary to perform such task.
-It uses the [sysinfo](https://docs.rs/sysinfo/0.15.8/sysinfo/) crate, wich provides a nice abstraction for querying the OS's processes.
+It uses the [sysinfo](https://docs.rs/sysinfo/0.15.8/sysinfo/) crate, which provides a nice abstraction for querying the OS's processes.
 
 Please, feel free to open an issue or send a PR if you might improve this implementation in some sense.
 
