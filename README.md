@@ -12,7 +12,7 @@ For example, a [Pod readiness probe](https://kubernetes.io/docs/tasks/configure-
     readinessProbe:
       exec:
         command:
-        - /usr/bin/IsRunning
+        - /usr/bin/is_running
         - nginx
       failureThreshold: 3
       periodSeconds: 5
