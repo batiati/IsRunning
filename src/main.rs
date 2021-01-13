@@ -1,33 +1,26 @@
-/// is_running is a command line utility designed to check if some process is running
+/// is_running is a command line utility designed to check if some processes are running
 /// It's main goal is to be used as healthy-check probe on containers
-
-use sysinfo::{SystemExt, ProcessExt};
+/// Usage:
+/// ./is_running nginx
 use std::env;
+use sysinfo::{ProcessExt, SystemExt};
 
-const ERROR : i32 = -1;
-const SUCCESS : i32 = 0;
+const SUCCESS: i32 = 0;
+const ERROR: i32 = 1;
 
 fn main() {
+    let mut sys = sysinfo::System::new();
+    sys.refresh_processes();
 
-    let mut args  = env::args();
+    let processes = sys.get_processes();
 
-    //First arg is the process's name
-    args.next();
+    let found = env::args()
+        .skip(1)
+        .all(|name| processes.values().any(|process| process.name() == name));
 
-    let mut exit_code= ERROR;
-
-    if let Some(name) = args.next() {
-
-        let mut sys = sysinfo::System::new();
-        sys.refresh_processes();
-        let exists = sys.get_processes()
-            .values()
-            .any(|x| x.name() == name);
-
-       if exists {
-           exit_code = SUCCESS;
-       };
+    if found {
+        std::process::exit(SUCCESS);
+    } else {
+        std::process::exit(ERROR);
     }
-
-    std::process::exit(exit_code);
 }
