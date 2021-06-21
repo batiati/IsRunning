@@ -6,24 +6,25 @@ It expects a list of process's names as argument and simply exits with code `0` 
 No output or message is printed.
 
 Usage:
-```
+
+```bash
 is_running PROCESS_1 [PROCESS_2] [PROCESS_N]
 ```
 
 _Examples_
-```
+```bash
 $ ./is_running nginx
 $ echo $?
 0
 ```
 
-```
+```bash
 $ ./is_running nginx node
 $ echo $?
 0
 ```
 
-```
+```bash
 $ ./is_running dead
 $ echo $?
 1
@@ -33,7 +34,7 @@ $ echo $?
 Its main purpose is to serve as readiness probe for containers that spawn multiple processes.
 
 For example, a [Pod readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) to detect if `nginx` is running:
-```
+```yaml
     readinessProbe:
       exec:
         command:
@@ -50,7 +51,7 @@ For example, a [Pod readiness probe](https://kubernetes.io/docs/tasks/configure-
 ### Why not use a bash script?
 I used to use a bash script combining `ps` and `grep` together:
 
-```
+```bash
 $ ps | grep nginx
 $ echo $?
 0
